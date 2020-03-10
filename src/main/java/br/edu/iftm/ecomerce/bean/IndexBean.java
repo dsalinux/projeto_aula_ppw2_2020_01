@@ -10,14 +10,13 @@ import javax.inject.Named;
 @SessionScoped
 public class IndexBean implements Serializable {
     
+    @Inject
     private MensagemBean mensagemBean;
     
     private String mensagem = "Funcionou estamos no JAVA....";
 
     public String getMensagem() {
-        Usuario usuario = new Usuario();
-        usuario.setNome("Danilo");
-        return usuario.getNome();
+        return mensagemBean != null?mensagemBean.mensagem:"Erro";
     }
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;

@@ -1,6 +1,8 @@
 package br.edu.iftm.ecomerce.bean;
 
-public class MensagemBean {
+import java.io.Serializable;
+
+public class MensagemBean implements Serializable {
     
     public String mensagem = "Olá, mensagemBean";
     
