@@ -16,7 +16,7 @@ public class IndexBean implements Serializable {
     private String mensagem = "Funcionou estamos no JAVA....";
 
     public String getMensagem() {
-        return mensagemBean != null?mensagemBean.mensagem:"Erro";
+        return mensagemBean.mensagem;
     }
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;

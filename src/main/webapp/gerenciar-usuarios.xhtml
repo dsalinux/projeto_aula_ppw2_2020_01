@@ -11,12 +11,12 @@
       <p:fieldset legend="Gerenciar Usuarios">
         <p:panelGrid columns="2">
 
-          <h:outputLabel value="Nome"></h:outputLabel>
-          <p:inputText value="#{usuarioBean.usuario.nome}"></p:inputText>
+          <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
+          <p:inputText id="inputnome" value="#{usuarioBean.usuario.nome}"></p:inputText>
           
           <h:outputLabel value="Email"></h:outputLabel>
           <p:inputText value="#{usuarioBean.usuario.email}"></p:inputText>
-          
+
           <h:outputLabel value="Senha"></h:outputLabel>
           <p:inputText value="#{usuarioBean.usuario.senha}"></p:inputText>
         </p:panelGrid>
@@ -28,11 +28,24 @@
               actionListener="#{usuarioBean.adicionar()}"
               update="@form"
               ></p:commandButton>
+            
+            <p:commandButton 
+              value="Buscar"
+              actionListener="#{usuarioBean.listar()}"
+              update="@form"
+              ></p:commandButton>
           </p:toolbarGroup>
         </p:toolbar>
         
         <p:dataTable value="#{usuarioBean.usuarios}"
                      var="usuario">
+          <p:column>
+            <p:commandButton 
+              icon="pi pi-trash"
+              actionListener="#{usuarioBean.deletar(usuario)}"
+              update="@form"
+              ></p:commandButton>
+          </p:column>
           <p:column headerText="Nome">
             <h:outputText value="#{usuario.nome}"></h:outputText>
           </p:column>
@@ -46,6 +59,7 @@
         
       </p:fieldset>
     </h:form>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
   </h:body>
 </html>
 
