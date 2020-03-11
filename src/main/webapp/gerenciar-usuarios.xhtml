@@ -46,7 +46,7 @@
               update="@form"
               ></p:commandButton>
           </p:column>
-          <p:column headerText="Nome">
+          <p:column headerText="Nome" filterBy="#{usuario.nome}">
             <h:outputText value="#{usuario.nome}"></h:outputText>
           </p:column>
           <p:column headerText="Email">
