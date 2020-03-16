@@ -1,6 +1,6 @@
-package br.edu.iftm.ecomerce.bean;
+package br.edu.iftm.ecommerce.bean;
 
-import br.edu.iftm.ecomerce.logic.UsuarioLogic;
+import br.edu.iftm.ecommerce.logic.UsuarioLogic;
 import br.edu.iftm.ecommerce.entity.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;

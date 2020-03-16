@@ -1,4 +1,4 @@
-package br.edu.iftm.ecomerce.bean;
+package br.edu.iftm.ecommerce.bean;
 
 import java.io.Serializable;
 

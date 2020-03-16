@@ -1,4 +1,4 @@
-package br.edu.iftm.ecomerce.logic;
+package br.edu.iftm.ecommerce.logic;
 
 import br.edu.iftm.ecommerce.entity.Usuario;
 import java.io.Serializable;
