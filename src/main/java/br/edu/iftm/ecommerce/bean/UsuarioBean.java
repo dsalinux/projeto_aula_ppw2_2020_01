@@ -15,24 +15,13 @@ import lombok.Setter;
 @SessionScoped
 @Getter
 @Setter
-public class UsuarioBean implements Serializable {
+public class UsuarioBean extends CrudBean<Usuario>{
 
   @Inject
   private UsuarioLogic usuarioLogic;
-  private Usuario usuario = new Usuario();
-  private List<Usuario> usuarios = new ArrayList<>();
 
-  public void adicionar() {
-    usuarioLogic.salvar(usuario);
-    usuario = new Usuario();
-  }
-
-  public void deletar(Usuario usuario){
-    usuarioLogic.deletar(usuario);
-  }
+    public UsuarioBean() {
+        super(Usuario.class);
+    }
   
-  public void listar() {
-    usuarios = usuarioLogic.listar();
-  }
-
 }
