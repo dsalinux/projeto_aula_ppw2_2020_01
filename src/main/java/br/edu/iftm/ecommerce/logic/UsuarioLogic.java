@@ -5,20 +5,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioLogic implements Serializable{
+public class UsuarioLogic implements CrudLogic<Usuario>{
   
   private List<Usuario> usuarios = new ArrayList<>();
   private int id = 1;
   
-  public void salvar(Usuario usuario){
+  @Override
+  public Usuario salvar(Usuario usuario){
     usuario.setId(id++);
     usuarios.add(usuario);
+      return null;
   }
+  
+  
+  @Override
   public void deletar(Usuario usuario) {
     usuarios.remove(usuario);
   }
-  public List<Usuario> listar(){
+  
+  @Override
+  public List<Usuario> buscar(Usuario entidade){
     return usuarios;
   }
+
+
   
 }

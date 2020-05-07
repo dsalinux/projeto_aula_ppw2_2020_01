@@ -7,41 +7,56 @@
       template="template.xhtml">
 
     <h:form>
-      <p:fieldset legend="Gerenciar Usuarios">
-        <p:panelGrid columns="2">
-
-          <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
-          <p:inputText id="inputnome" value="#{usuarioBean.usuario.nome}"></p:inputText>
-          
-          <h:outputLabel value="Email"></h:outputLabel>
-          <p:inputText value="#{usuarioBean.usuario.email}"></p:inputText>
-
-          <h:outputLabel value="Senha"></h:outputLabel>
-          <p:inputText value="#{usuarioBean.usuario.senha}"></p:inputText>
-        </p:panelGrid>
-        
+        <!--<p:messages closable="true" showDetail="true"></p:messages>-->
+        <p:growl showDetail="true" life="4000"></p:growl>
         <p:toolbar>
           <p:toolbarGroup>
+               <p:commandButton 
+              value="Novo"
+              actionListener="#{usuarioBean.novo()}"
+              update="@form"
+              ></p:commandButton>
             <p:commandButton 
-              value="Adicionar"
-              actionListener="#{usuarioBean.adicionar()}"
+              value="Salvar"
+              actionListener="#{usuarioBean.salvar()}"
               update="@form"
               ></p:commandButton>
             
             <p:commandButton 
               value="Buscar"
-              actionListener="#{usuarioBean.listar()}"
+              actionListener="#{usuarioBean.buscar()}"
               update="@form"
               ></p:commandButton>
           </p:toolbarGroup>
         </p:toolbar>
         
-        <p:dataTable value="#{usuarioBean.usuarios}"
-                     var="usuario">
+        
+      <p:fieldset legend="Gerenciar Usuarios">
+          <p:panelGrid columns="2" rendered="#{usuarioBean.statusDaTela.name() !='BUSCA'}">
+
+          <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
+          <p:inputText id="inputnome" value="#{usuarioBean.entidade.nome}"></p:inputText>
+          
+          <h:outputLabel value="Email"></h:outputLabel>
+          <p:inputText value="#{usuarioBean.entidade.email}"></p:inputText>
+
+          <h:outputLabel value="Senha"></h:outputLabel>
+          <p:inputText value="#{usuarioBean.entidade.senha}"></p:inputText>
+        </p:panelGrid>
+        
+    
+        
+        <p:dataTable value="#{usuarioBean.entidade}"
+                     var="usuario" rendered="#{usuarioBean.statusDaTela.name() == 'BUSCA'}">
           <p:column>
             <p:commandButton 
               icon="pi pi-trash"
               actionListener="#{usuarioBean.deletar(usuario)}"
+              update="@form"
+              ></p:commandButton>
+              <p:commandButton 
+              icon="pi pi-pencil"
+              actionListener="#{usuarioBean.editar(usuario)}"
               update="@form"
               ></p:commandButton>
           </p:column>
