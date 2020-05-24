@@ -47,9 +47,12 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     
     public void salvar(){
         getLogic().salvar(entidade);
+        if(entidades.contains(entidade)){
+            entidades.add(0, entidade);
+        } // ao adicionar esse trecho a mensagem salvo com sucesso sumiu
         addMensagemInfo
         ("Salvo com sucesso!");
-    
+        statusDaTela = StatusDaTela.BUSCA;
     }
     
     public void editar(E entidade){
@@ -59,6 +62,8 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     
     public void deletar(E entidade){
         getLogic().deletar(entidade);
+        getEntidades().remove(entidade);
+        addMensagemInfo("Removido com Sucesso!"); // mensagem não aparece e o objeto só some da lista ao clicar em buscar
     
     }
     
