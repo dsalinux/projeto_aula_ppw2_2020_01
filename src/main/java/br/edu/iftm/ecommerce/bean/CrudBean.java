@@ -1,15 +1,15 @@
 package br.edu.iftm.ecommerce.bean;
 
-import java.io.Serializable;
+import br.edu.iftm.ecommerce.logic.CrudLogic;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CrudBean<E> implements Serializable  {
+public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     
     private E entidade;
     private List<E> entidades;
@@ -29,17 +29,30 @@ public class CrudBean<E> implements Serializable  {
     
     public void novo(){
         try {
-            this.entidade = classeEntidade.newInstance();
+            this.entidade = classeEntidade.getDeclaredConstructor().newInstance();
             statusDaTela = StatusDaTela.INSERCAO;
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void salvar(){
-        
+        entidade = getLogic().salvar(this.entidade);
+        if(!entidades.contains(entidade)){
+            entidades.add(0, entidade);
+        }
+        addMensagemInfo("Salvo com sucesso.");
+        statusDaTela = StatusDaTela.BUSCA;
     }
     
     public void editar(E entidade){
@@ -48,7 +61,9 @@ public class CrudBean<E> implements Serializable  {
     }
     
     public void deletar(E entidade){
-        
+        getLogic().deletar(entidade);
+        getEntidades().remove(entidade);
+        addMensagemInfo("Removido com sucesso.");
     }
     
     public void buscar(){
@@ -56,8 +71,9 @@ public class CrudBean<E> implements Serializable  {
             statusDaTela = StatusDaTela.BUSCA;
             return;
         }
+        this.entidades = getLogic().buscar(null);
     }
     
-    
+    public abstract L getLogic();
     
 }

@@ -2,6 +2,7 @@ package br.edu.iftm.ecommerce.bean;
 
 import br.edu.iftm.ecommerce.logic.UsuarioLogic;
 import br.edu.iftm.ecommerce.entity.Usuario;
+import br.edu.iftm.ecommerce.logic.ProdutoLogic;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +14,19 @@ import lombok.Setter;
 
 @Named
 @SessionScoped
-@Getter
-@Setter
-public class UsuarioBean extends CrudBean<Usuario>{
+@Getter @Setter
+public class UsuarioBean extends CrudBean<Usuario, UsuarioLogic> {
 
-  @Inject
-  private UsuarioLogic usuarioLogic;
+    @Inject
+    private UsuarioLogic usuarioLogic;
 
     public UsuarioBean() {
         super(Usuario.class);
     }
-  
+
+    @Override
+    public UsuarioLogic getLogic() {
+        return this.usuarioLogic;
+    }
+
 }

@@ -1,7 +1,5 @@
 package br.edu.iftm.ecommerce.entity;
 
-import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,19 +10,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
-
+@Table(name="produto")
+public class Produto {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Integer id;
-    @Column(name="nome")
     private String nome;
-    @Column
-    private String email;
-    private String senha;
- 
+    private String descricao;
     
 }
