@@ -4,33 +4,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="template.xhtml">
+      template="template.xhtml"
+      xmlns:eccomponete="http://xmlns.jcp.org/jsf/composite/eccomponete">
 
     <h:form>
         <!--<p:messages closable="true" showDetail="true"></p:messages>-->
         <p:growl showDetail="true" life="4000"></p:growl>
-        <p:toolbar>
-          <p:toolbarGroup>
-               <p:commandButton 
-              value="Novo"
-              actionListener="#{produtoBean.novo()}"
-              update="@form"
-              ></p:commandButton>
-            <p:commandButton 
-              value="Salvar"
-              rendered="#{produtoBean.statusDaTela.name() !='BUSCA'}"
-              actionListener="#{produtoBean.salvar()}"
-              update="@form"
-              ></p:commandButton>
-            
-            <p:commandButton 
-              value="Buscar"
-              actionListener="#{produtoBean.buscar()}"
-              update="@form"
-              ></p:commandButton>
-          </p:toolbarGroup>
-        </p:toolbar>
-        
+        <eccomponete:crudbar crudBean="#{produtoBean}"/>
         
       <p:fieldset legend="Gerenciar Usuarios">
           <p:panelGrid columns="2" rendered="#{produtoBean.statusDaTela.name() !='BUSCA'}">
