@@ -1,7 +1,10 @@
 package br.edu.iftm.ecommerce.bean;
 
 import br.edu.iftm.ecommerce.logic.CrudLogic;
+import br.edu.iftm.ecommerce.util.exception.ErroNegocioException;
+import br.edu.iftm.ecommerce.util.exception.ErroSistemaException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,9 +29,16 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
         EDICAO,
         BUSCA
     }
-    
+    public void testar() {
+        long time = Calendar.getInstance().getTimeInMillis()+2000;
+        long agora = Calendar.getInstance().getTimeInMillis();
+        while(time > agora) {
+            agora = Calendar.getInstance().getTimeInMillis();
+        }
+    }
     public void novo(){
         try {
+            testar();
             this.entidade = classeEntidade.getDeclaredConstructor().newInstance();
             statusDaTela = StatusDaTela.INSERCAO;
         } catch (NoSuchMethodException ex) {
@@ -47,31 +57,56 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     }
     
     public void salvar(){
-        entidade = getLogic().salvar(this.entidade);
-        if(!entidades.contains(entidade)){
-            entidades.add(0, entidade);
+        try {
+            testar();
+            entidade = getLogic().salvar(this.entidade);
+            if(!entidades.contains(entidade)){
+                entidades.add(0, entidade);
+            }
+            addMensagemInfo("Salvo com sucesso.");
+            statusDaTela = StatusDaTela.BUSCA;
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
         }
-        addMensagemInfo("Salvo com sucesso.");
-        statusDaTela = StatusDaTela.BUSCA;
     }
     
     public void editar(E entidade){
+        testar();
         this.entidade = entidade;
         statusDaTela = StatusDaTela.EDICAO;
     }
     
     public void deletar(E entidade){
-        getLogic().deletar(entidade);
-        getEntidades().remove(entidade);
-        addMensagemInfo("Removido com sucesso.");
+        try {
+            testar();
+            getLogic().deletar(entidade);
+            getEntidades().remove(entidade);
+            addMensagemInfo("Removido com sucesso.");
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
+        }
     }
     
     public void buscar(){
-        if(!statusDaTela.equals(StatusDaTela.BUSCA)){
-            statusDaTela = StatusDaTela.BUSCA;
-            return;
+        try {
+            testar();
+            if(!statusDaTela.equals(StatusDaTela.BUSCA)){
+                statusDaTela = StatusDaTela.BUSCA;
+                return;
+            }
+            this.entidades = getLogic().buscar(null);
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
         }
-        this.entidades = getLogic().buscar(null);
     }
     
     public abstract L getLogic();
