@@ -1,0 +1,183 @@
+:root {
+    --cor-body-fundo: #f1f1f1;
+    --cor-aside-borda: #5c6670;
+    --cor-aside-fundo: #343a40;
+    --cor-aside-texto: #ffffff;
+    
+    --cor-header-fundo: #3f807f;
+    --cor-texto-titulo: #ffffff;
+
+    --cor-footer-fundo: #fff;
+    --cor-overlay: rgba(0,0,0,0.5);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    font-weight: normal;
+    color: #333;
+    text-align: left;
+    background-color: var(--cor-body-fundo);    
+}
+
+.wrapper, html, body {
+    min-height: 100%;
+}
+
+.wrapper {
+    position: relative;
+}
+
+/* Header e formatacao de logo */
+header {
+    height: 60px;
+    background-color: var(--cor-header-fundo);
+    transition: margin-left 0.3s;
+}
+
+header .menu-toggle {
+    line-height: 60px;
+    padding: 0px 15px;
+    font-size: 2em;
+    display: inline-block;
+    transition: background 0.3s;
+    text-decoration: none;
+    color: var(--cor-texto-titulo)
+}
+header .menu-toggle:hover {
+    background-color: var(--cor-overlay);
+}
+header h1 {
+    display: inline;
+    margin: 0;
+    font-size: 1.5em;
+    line-height: 60px;
+    color: var(--cor-texto-titulo);
+}
+
+aside {
+    width: 250px;
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: -250px;
+    z-index: 999;
+    background-color: var(--cor-aside-fundo);
+    transition: left 0.3s;
+}
+
+aside a.brand {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+}
+aside a.brand img {
+    max-height: 40px;
+}
+
+aside .usuario-logado {
+    border-top: 1px solid var(--cor-aside-borda);
+}
+
+aside ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+aside ul a {
+    display: block;
+    padding: 20px 10px;
+    color: var(--cor-aside-texto);
+    text-decoration: none;
+}
+
+aside ul a[href="#"] {
+    color: gray;
+}
+
+aside a:hover {
+    background-color: var(--cor-aside-borda);
+    transition: 0.3s;
+}
+aside ul ul {
+    padding-left: calc(+10px);
+    height: 0;
+    overflow: hidden;
+}
+aside a.submenu-aberto ~ ul {
+    height: auto;
+}
+
+aside ul i {
+    margin-right: 8px;
+}
+
+main {
+    min-height: calc(100vh - 60px - 60px);
+    overflow: auto;/*Evita que magens nao planejadas saiam para fora do main. Ex. H1*/
+    padding: 10px;
+    transition: margin-left 0.3s;
+}
+
+footer {
+    height: 60px;
+    padding-left: 20px;
+    background-color: var(--cor-footer-fundo);
+    font-size: 1.2em;
+    line-height: 60px;
+    transition: margin-left 0.3s;
+    text-align: center;
+}
+
+.overlay-menu {
+    position: fixed;
+    z-index: 998;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--cor-overlay);
+    display: none;
+}
+
+
+/* Configuracao menu para desktop e maiores */
+@media screen and (min-width: 991px) {
+    .menu-open main, .menu-open header, .menu-open footer {
+        margin-left: 250px;
+    }
+    .menu-open aside {
+        left: 0;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    aside {
+        left: -250px;
+    }
+    .menu-mobile-open aside {
+        left: 0px;
+    }
+    .menu-mobile-open .overlay-menu {
+        display: block;
+    }
+    .menu-mobile-open .menu-toggle {
+        left: 250px;
+        position: absolute;
+    }
+}

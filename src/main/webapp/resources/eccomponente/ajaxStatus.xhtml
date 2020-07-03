@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="texto" default="Carregando..."></cc:attribute>
+        <cc:attribute name="iconeFA" default="fa-clock-o"></cc:attribute>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:outputStylesheet library="ecommerce" name="css/ajaxstatus.css"></h:outputStylesheet>
+        <div class="ajaxStatus" id="#{cc.id}">
+            <div class="ajaxAnimation">
+                <div class="ajaxAnimationBorda"></div>
+                <div class="ajaxAnimationMeio"></div>
+                <div class="ajaxAnimationIcone"><i class="fa #{cc.attrs.iconeFA}"></i></div>
+            </div>
+            <div class="ajaxStatusTexto">#{cc.attrs.texto}</div>
+        </div>
+        <h:outputScript library="ecommerce" name="js/ajaxstatus.js"></h:outputScript>
+    </cc:implementation>
+</html>

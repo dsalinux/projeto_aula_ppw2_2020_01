@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:ec="http://xmlns.jcp.org/jsf/composite/eccomponente">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="crudBean" required="true" 
+                      shortDescription="Classe CrudBean para componente"></cc:attribute>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <ec:ajaxStatus 
+            iconeFA="#{cc.attrs.crudBean.statusDaTela.name() == 'BUSCA'?'fa-search':'fa-arrow-left'}" 
+            texto="#{cc.attrs.crudBean.statusDaTela.name() == 'BUSCA'?'Buscando...':'Voltando...'}"
+            id="ajaxStatusSearch"></ec:ajaxStatus>
+        <ec:ajaxStatus 
+            iconeFA="fa-floppy-o" 
+            texto="Salvando..."
+            id="ajaxStatusSave"></ec:ajaxStatus>
+        <ec:ajaxStatus 
+            iconeFA="fa-file-o" 
+            texto="Novo..."
+            id="ajaxStatusNew"></ec:ajaxStatus>
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton 
+                    value="Novo"
+                    icon="fa fa-file-o"
+                    actionListener="#{cc.attrs.crudBean.novo()}"
+                    global="false"
+                    onstart="ajaxStatus.show('#ajaxStatusNew')"
+                    oncomplete="ajaxStatus.hide('#ajaxStatusNew')"
+                    update="@form"
+                    ></p:commandButton>
+                <p:commandButton 
+                    value="Salvar"
+                    icon="fa fa-floppy-o"
+                    rendered="#{cc.attrs.crudBean.statusDaTela.name() != 'BUSCA'}"
+                    actionListener="#{cc.attrs.crudBean.salvar()}"
+                    global="false"
+                    onstart="ajaxStatus.show('#ajaxStatusSave')"
+                    oncomplete="ajaxStatus.hide('#ajaxStatusSave')"
+                    update="@form"
+                    ></p:commandButton>
+
+                <p:commandButton 
+                    value="${cc.attrs.crudBean.statusDaTela.name() == 'BUSCA'?'Buscar':'Voltar'}"
+                    icon="fa ${cc.attrs.crudBean.statusDaTela.name() == 'BUSCA'?'fa-search':'fa-arrow-left'}"
+                    actionListener="#{cc.attrs.crudBean.buscar()}"
+                    global="false"
+                    onstart="ajaxStatus.show('#ajaxStatusSearch')"
+                    oncomplete="ajaxStatus.hide('#ajaxStatusSearch')"
+                    update="@form"
+                    ></p:commandButton>
+                <cc:insertChildren></cc:insertChildren>
+            </p:toolbarGroup>
+            <p:toolbarGroup align="right">
+                <cc:renderFacet name="toolbarRight"></cc:renderFacet>
+            </p:toolbarGroup>
+        </p:toolbar>
+        <p:spacer height="10px"></p:spacer>
+    </cc:implementation>
+</html>

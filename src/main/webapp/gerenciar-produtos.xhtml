@@ -1,54 +1,62 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="template.xhtml"
-      xmlns:eccomponete="http://xmlns.jcp.org/jsf/composite/eccomponete">
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template-admin.xhtml"
+             xmlns:ec="http://xmlns.jcp.org/jsf/composite/eccomponente"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:form>
-        <!--<p:messages closable="true" showDetail="true"></p:messages>-->
-        <p:growl showDetail="true" life="4000"></p:growl>
-        <eccomponete:crudbar crudBean="#{produtoBean}"/>
-        
-      <p:fieldset legend="Gerenciar Usuarios">
-          <p:panelGrid columns="2" rendered="#{produtoBean.statusDaTela.name() !='BUSCA'}">
 
-          <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
-          <p:inputText id="inputnome" value="#{produtoBean.entidade.nome}"></p:inputText>
-          
-          <h:outputLabel value="Descrição"></h:outputLabel>
-          <p:inputTextarea value="#{produtoBean.entidade.descricao}"></p:inputTextarea>
-
-        </p:panelGrid>
-        
+    <ui:param name="tituloPagina" value="Gerenciar Produtos"></ui:param>
     
+    <h:form>
         
-        <p:dataTable value="#{produtoBean.entidade}"
-                     var="produto" rendered="#{produtoBean.statusDaTela.name() == 'BUSCA'}">
-          <p:column>
-            <p:commandButton 
-              icon="pi pi-trash"
-              actionListener="#{produtoBean.deletar(produto)}"
-              update="@form"
-              ></p:commandButton>
-              <p:commandButton 
-              icon="pi pi-pencil"
-              actionListener="#{produtoBean.editar(produto)}"
-              update="@form"
-              ></p:commandButton>
-          </p:column>
-          <p:column headerText="Nome" filterBy="#{produto.nome}">
-            <h:outputText value="#{produto.nome}"></h:outputText>
-          </p:column>
-          <p:column headerText="Descrição">
-            <h:outputText value="#{produto.descricao}"></h:outputText>
-          </p:column>
+        <ec:curdbar crudBean="#{produtoBean}">
+            <p:commandButton value="Exportar"></p:commandButton>
+            <f:facet name="toolbarRight">
+                <p:commandButton 
+                    value="Opções"
+                    icon="fa fa-file-o"
+                    update="@form"
+                    ></p:commandButton>
+            </f:facet>
+        </ec:curdbar>
+        <p:fieldset legend="Gerenciar Usuarios">
+            <p:panelGrid columns="2" rendered="#{produtoBean.statusDaTela.name() != 'BUSCA'}" >
 
-        </p:dataTable>
-        
-      </p:fieldset>
+                <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
+                <p:inputText id="inputnome" value="#{produtoBean.entidade.nome}"></p:inputText>
+
+                <h:outputLabel value="Descrição"></h:outputLabel>
+                <p:inputTextarea value="#{produtoBean.entidade.descricao}"></p:inputTextarea>
+
+            </p:panelGrid>
+
+            <p:dataTable value="#{produtoBean.entidades}"
+                         var="produto"  rendered="#{produtoBean.statusDaTela.name() == 'BUSCA'}" >
+                <p:column>
+                    <p:commandButton 
+                        icon="pi pi-trash"
+                        actionListener="#{produtoBean.deletar(produto)}"
+                        update="@form"
+                        ></p:commandButton>
+                    <p:commandButton 
+                        icon="pi pi-pencil"
+                        actionListener="#{produtoBean.editar(produto)}"
+                        update="@form"
+                        ></p:commandButton>
+                </p:column>
+                <p:column headerText="Nome" filterBy="#{produto.nome}">
+                    <h:outputText value="#{produto.nome}"></h:outputText>
+                </p:column>
+                <p:column headerText="Descrição">
+                    <h:outputText value="#{produto.descricao}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+
+        </p:fieldset>
     </h:form>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 

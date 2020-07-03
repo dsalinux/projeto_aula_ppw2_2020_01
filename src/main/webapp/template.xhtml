@@ -11,22 +11,23 @@
                             ></h:outputStylesheet>
     </h:head>
     <h:body>
-        <form>
-      <p:menubar>
-        
-        <p:menuitem value="Dashboard" url="index.xhtml">
-        </p:menuitem>
-        
-        <p:submenu label="Cadastros">
-          <p:menuitem value="Usuarios" 
-                      url="gerenciar-usuarios.xhtml"></p:menuitem>
-          <p:menuitem value="Produtos" 
-                      url="gerenciar-produtos.xhtml"></p:menuitem>
-        </p:submenu>
-      </p:menubar>
-      </form>
-      <ui:insert></ui:insert>
-      
+        <h:form>
+            <p:menubar>
+
+                <p:menuitem value="Dashboard" url="index.xhtml">
+                </p:menuitem>
+
+                <p:submenu label="Cadastros">
+                    <p:menuitem value="Usuarios" 
+                                url="gerenciar-usuarios.xhtml"></p:menuitem>
+                    <p:menuitem value="Produtos" 
+                                url="gerenciar-produtos.xhtml"></p:menuitem>
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+
+        <ui:insert></ui:insert>
+
     </h:body>
 </html>
 
