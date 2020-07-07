@@ -7,7 +7,7 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>ecommerce_iftm_2020</name>
+    <name>erickson_commits_ecommerce_iftm_2020</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -35,6 +35,19 @@
             <version>2.4.8.Final</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.14.Final</version>           
+        </dependency>
+        
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
+            
+        </dependency>
+        
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-core-jsf</artifactId>

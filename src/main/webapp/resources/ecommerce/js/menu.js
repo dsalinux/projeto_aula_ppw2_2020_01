@@ -1,7 +1,7 @@
 
 
 function expandirMenu(event) {
-    var element = event.toElement;
+    var element = event.srcElement;
     element.classList.toggle("submenu-aberto");
     event.preventDefault();
 }
