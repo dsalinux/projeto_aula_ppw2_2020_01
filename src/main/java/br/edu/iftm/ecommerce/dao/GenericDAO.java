@@ -1,5 +1,6 @@
 package br.edu.iftm.ecommerce.dao;
 
+import br.edu.iftm.ecommerce.util.DatabaseUtil;
 import br.edu.iftm.ecommerce.util.exception.ErroSistemaException;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -15,6 +16,7 @@ public class GenericDAO<E, ID> implements Serializable {
 
     private EntityManager criarEntityManager() throws ErroSistemaException{
         try {
+            DatabaseUtil.migrarBancoDeDados();
             EntityManagerFactory emf
                     = Persistence.createEntityManagerFactory("br.edu.iftm.ecommerce.jpa");
             EntityManager em = emf.createEntityManager();
