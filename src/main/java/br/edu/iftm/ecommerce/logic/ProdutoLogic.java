@@ -26,5 +26,10 @@ public class ProdutoLogic implements CrudLogic<Produto>{
     public List<Produto> buscar(Produto entidade) throws ErroSistemaException, ErroNegocioException {
         return dao.listar();
     }
+
+    @Override
+    public Produto buscarPorId(Produto entidade) throws ErroSistemaException, ErroNegocioException {
+        return dao.buscarPorId(entidade.getId());
+    }
     
 }

@@ -1,6 +1,6 @@
 package br.edu.iftm.ecommerce.util.exception;
 
-public class ErroSistemaException extends Exception{
+public class ErroSistemaException extends RuntimeException{
 
     public ErroSistemaException(String message) {
         super(message);

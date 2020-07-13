@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template-admin.xhtml"
+             xmlns:ec="http://xmlns.jcp.org/jsf/composite/eccomponente"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:param name="tituloPagina" value="Gerenciar Categorias"></ui:param>
+    
+    <h:form>
+        
+        <ec:curdbar crudBean="#{categoriaBean}"></ec:curdbar>
+        <p:fieldset legend="Categorias">
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" rendered="#{categoriaBean.statusDaTela.name() != 'BUSCA'}" >
+
+                <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
+                <p:inputText id="inputnome" value="#{categoriaBean.entidade.nome}"></p:inputText>
+
+                <h:outputLabel value="Categoria Superior"></h:outputLabel>
+                <p:selectOneMenu value="#{categoriaBean.entidade.categoria}">
+                    <f:selectItem itemLabel="Selecione"></f:selectItem>
+                    <f:selectItems value="#{categoriaBean.categoriasSuperior}" var="categoria" itemLabel="#{categoria.nome}" itemValue="#{categoria}"></f:selectItems>
+                </p:selectOneMenu>
+
+            </p:panelGrid>
+
+            <p:dataTable value="#{categoriaBean.entidades}"
+                         var="produto"  rendered="#{categoriaBean.statusDaTela.name() == 'BUSCA'}" >
+                <p:column>
+                    <p:commandButton 
+                        icon="pi pi-trash"
+                        actionListener="#{categoriaBean.deletar(produto)}"
+                        update="@form"
+                        ></p:commandButton>
+                    <p:commandButton 
+                        icon="pi pi-pencil"
+                        actionListener="#{categoriaBean.editar(produto)}"
+                        update="@form"
+                        ></p:commandButton>
+                </p:column>
+                <p:column headerText="Nome" filterBy="#{produto.nome}">
+                    <h:outputText value="#{produto.nome}"></h:outputText>
+                </p:column>
+                <p:column headerText="Superior">
+                    <h:outputText value="#{produto.categoria.nome}" rendered="#{produto.categoria != null}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+
+        </p:fieldset>
+    </h:form>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
+</ui:decorate>
+

@@ -5,29 +5,42 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="template-admin.xhtml"
-             xmlns:ec="http://xmlns.jcp.org/jsf/composite/eccomponente">
+             xmlns:ec="http://xmlns.jcp.org/jsf/composite/eccomponente"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:param name="tituloPagina" value="Gerenciar Usuarios"></ui:param>
     
     <h:form>
-<!--        <p:messages closable="true" showDetail="true" ></p:messages>
-        <p:growl showDetail="true" life="6000"></p:growl>-->
+
         <ec:curdbar crudBean="#{usuarioBean}"/>
-        <p:fieldset legend="Gerenciar Usuarios">
-            <p:panelGrid columns="2" rendered="#{usuarioBean.statusDaTela.name() != 'BUSCA'}" >
+        <p:fieldset legend="Usuarios">
+            <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank" rendered="#{usuarioBean.statusDaTela.name() != 'BUSCA'}" >
 
                 <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
                 <p:inputText id="inputnome" value="#{usuarioBean.entidade.nome}"></p:inputText>
+                
+                <h:outputLabel for="inputsobrenome" value="Sobrenome"></h:outputLabel>
+                <p:inputText id="inputsobrenome" value="#{usuarioBean.entidade.sobrenome}"></p:inputText>
 
                 <h:outputLabel value="Email"></h:outputLabel>
                 <p:inputText value="#{usuarioBean.entidade.email}"></p:inputText>
+                
+                <h:outputLabel for="inputLogin" value="Login"></h:outputLabel>
+                <p:inputText id="inputLogin" value="#{usuarioBean.entidade.login}"></p:inputText>
 
                 <h:outputLabel value="Senha"></h:outputLabel>
-                <p:inputText value="#{usuarioBean.entidade.senha}"></p:inputText>
+                <p:password value="#{usuarioBean.entidade.senha}"></p:password>
+                
+                <h:outputLabel value="Permissões"></h:outputLabel>
+                <p:selectCheckboxMenu emptyLabel="Selecione" label="Permissões" value="#{usuarioBean.entidade.permissoes}">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+                    <f:selectItems value="#{usuarioBean.permissoes}" var="permissao" itemLabel="#{permissao.nome}" itemValue="#{permissao}" itemDescription="#{permissao.descricao}"></f:selectItems>
+                </p:selectCheckboxMenu>
+                
             </p:panelGrid>
 
             <p:dataTable value="#{usuarioBean.entidades}"
-                         var="usuario"  rendered="#{usuarioBean.statusDaTela.name() == 'BUSCA'}" >
+                         var="usuario"  rendered="#{usuarioBean.statusDaTela.name() == 'BUSCA'}" reflow="true" >
                 <p:column>
                     <p:commandButton 
                         icon="pi pi-trash"
@@ -43,17 +56,25 @@
                 <p:column headerText="Nome" filterBy="#{usuario.nome}">
                     <h:outputText value="#{usuario.nome}"></h:outputText>
                 </p:column>
+                <p:column headerText="Sobrenome" filterBy="#{usuario.sobrenome}">
+                    <h:outputText value="#{usuario.sobrenome}"></h:outputText>
+                </p:column>
                 <p:column headerText="Email">
                     <h:outputText value="#{usuario.email}"></h:outputText>
                 </p:column>
-                <p:column headerText="Senha">
-                    <h:outputText value="#{usuario.senha}"></h:outputText>
+                <p:column headerText="Login" priority="4">
+                    <h:outputText value="#{usuario.login}"></h:outputText>
+                </p:column>
+                <p:column headerText="Data Cadastro" priority="6">
+                    <h:outputText value="#{usuario.dataCadastro}">
+                        <f:convertDateTime locale="pt-br" dateStyle="short"></f:convertDateTime>
+                    </h:outputText>
                 </p:column>
             </p:dataTable>
 
         </p:fieldset>
     </h:form>
-    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    
 
 </ui:decorate>
 

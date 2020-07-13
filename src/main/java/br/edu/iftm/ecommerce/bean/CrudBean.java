@@ -4,6 +4,7 @@ import br.edu.iftm.ecommerce.logic.CrudLogic;
 import br.edu.iftm.ecommerce.util.exception.ErroNegocioException;
 import br.edu.iftm.ecommerce.util.exception.ErroSistemaException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,16 +30,9 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
         EDICAO,
         BUSCA
     }
-    public void testar() {
-        long time = Calendar.getInstance().getTimeInMillis()+2000;
-        long agora = Calendar.getInstance().getTimeInMillis();
-        while(time > agora) {
-            agora = Calendar.getInstance().getTimeInMillis();
-        }
-    }
+
     public void novo(){
         try {
-            testar();
             this.entidade = classeEntidade.getDeclaredConstructor().newInstance();
             statusDaTela = StatusDaTela.INSERCAO;
         } catch (NoSuchMethodException ex) {
@@ -58,11 +52,13 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     
     public void salvar(){
         try {
-            testar();
             entidade = getLogic().salvar(this.entidade);
-            if(!entidades.contains(entidade)){
-                entidades.add(0, entidade);
-            }
+//            if(entidades == null){
+//                entidades = new ArrayList<>();
+//            }
+//            if(!entidades.contains(entidade)){
+//                entidades.add(0, entidade);
+//            }
             addMensagemInfo("Salvo com sucesso.");
             statusDaTela = StatusDaTela.BUSCA;
         } catch (ErroSistemaException ex) {
@@ -74,14 +70,20 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     }
     
     public void editar(E entidade){
-        testar();
-        this.entidade = entidade;
-        statusDaTela = StatusDaTela.EDICAO;
+        try {
+            entidade = getLogic().buscarPorId(entidade);
+            this.entidade = entidade;
+            statusDaTela = StatusDaTela.EDICAO;
+        } catch (ErroSistemaException ex) {
+            addMensagemFatal(ex.getMessage());
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErroNegocioException ex) {
+            addMensagemErro(ex.getMessage());
+        }
     }
     
     public void deletar(E entidade){
         try {
-            testar();
             getLogic().deletar(entidade);
             getEntidades().remove(entidade);
             addMensagemInfo("Removido com sucesso.");
@@ -95,7 +97,6 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     
     public void buscar(){
         try {
-            testar();
             if(!statusDaTela.equals(StatusDaTela.BUSCA)){
                 statusDaTela = StatusDaTela.BUSCA;
                 return;
