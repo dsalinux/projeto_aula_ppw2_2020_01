@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Site Ecommerce</title>
+        <h:outputStylesheet library="site" name="css/bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet library="site" name="css/site_ecommerce.css"></h:outputStylesheet>
+        <script src="https://kit.fontawesome.com/dcdd1dcc23.js" crossorigin="anonymous"></script>
+    </h:head>
+    <h:body>
+        <div class="wrapper">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="#{request.contextPath}/site/index.xhtml"><h:graphicImage library="ecommerce" name="imagens/logo.png"></h:graphicImage></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">                        
+                                <a class="nav-link #{'/site/index.xhtml'.equals(view.viewId)?'active':''}" href="#{request.contextPath}/site/index.xhtml">Home</a>
+                            </li>
+                            <li class="nav-item">                        
+                                <a class="nav-link #{'/site/sobre.xhtml'.equals(view.viewId)?'active':''}" href="#{request.contextPath}/site/sobre.xhtml">Sobre</a>
+                            </li>
+                            <li class="nav-item dropdown">                        
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Categorias
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Eletrodomésticos</a>
+                                    <a class="dropdown-item" href="#">Eletrônicos</a>
+                                    <a class="dropdown-item" href="#">Utensílhos</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">                        
+                                <a class="nav-link #{'/site/contato.xhtml'.equals(view.viewId)?'active':''}" href="#{request.contextPath}/site/contato.xhtml">Contato</a>
+                            </li>
+                        </ul>
+                        <div><a class="btn #{'/site/carrinho.xhtml'.equals(view.viewId)?'btn-success':'btn-light '}" href="carrinho.xhtml"><i class="fas fa-shopping-cart"></i> Carrinho <span class="badge badge-pill badge-danger">2</span></a></div>
+                    </div>
+                </div>
+            </nav>
+
+            <main>
+                <ui:insert></ui:insert>
+            </main>
+
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <ul class="lista-icones-rodape">
+                                <li><a href="#{request.contextPath}/index.xhtml">Admin</a></li>
+                                <li><a href="#{request.contextPath}/index/sobre.xhtml">Sobre nosso sistema</a></li>
+                                <li><a href="#{request.contextPath}/index/contato.xhtml">Contato</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <h:graphicImage library="ecommerce" height="30px" name="imagens/logo.png"></h:graphicImage>
+                            <div class="mt-2">IFTM - Ecommerce 1.0 - 2020</div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <h:outputScript library="site" name="js/jquery-3.5.1.slim.min.js"></h:outputScript>
+        <h:outputScript library="site" name="js/bootstrap.min.js"></h:outputScript>
+    </h:body>
+</html>
+

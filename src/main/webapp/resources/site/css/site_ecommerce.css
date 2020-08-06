@@ -1,0 +1,41 @@
+:root {
+    --cor-footer-fundo: #343a40;
+    --cor-footer-texto: #fff;
+}
+.wrapper, html, body {
+    min-height: 100%;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.bannerTec {
+    background: url("#{resource['site:imagens/banner_ipad.jpg']}") 0% 80%;
+    background-size: cover;
+    border-radius: 0;
+}
+
+main {
+    min-height: calc(100vh - 120px - 64px);
+    overflow: auto;
+}
+
+footer {
+    min-height: 120px;
+    background-color: var(--cor-footer-fundo);
+    color: var(--cor-footer-texto);
+    padding-top: 20px;
+}
+
+.card-img-produto {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.lista-icones-rodape {
+    list-style: none;
+    padding-left: 0;
+}

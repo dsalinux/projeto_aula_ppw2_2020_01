@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+             template="template-site.xhtml">
+
+    <div class="container">
+
+        <div class="mt-4"></div>
+
+        <h1>Carrinho de compras</h1>
+
+        <div class="mt-4"></div>
+
+        <h:form>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Geladeira 550L</td>
+                        <td width="150">
+                            <h:inputText styleClass="form-control" pt:type="number" value="1" ></h:inputText>
+                        </td>
+                        <td width="100">
+                            <h:commandLink styleClass="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </h:commandLink>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Cooktop 5 bocas</td>
+                        <td width="150">
+                            <h:inputText styleClass="form-control" pt:type="number" value="1" ></h:inputText>
+                        </td>
+                        <td width="100">
+                            <h:commandLink styleClass="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </h:commandLink>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TV Samsung 32"</td>
+                        <td width="150">
+                            <h:inputText styleClass="form-control" pt:type="number" value="2" ></h:inputText>
+                        </td>
+                        <td width="100">
+                            <h:commandLink styleClass="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </h:commandLink>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mt-4"></div>
+            <h:commandLink styleClass="btn btn-lg btn-block btn-success">
+                <i class="fas fa-credit-card"></i>
+                Finalizar compra
+            </h:commandLink>
+        </h:form>
+
+        
+    </div>
+
+</ui:decorate>
+
