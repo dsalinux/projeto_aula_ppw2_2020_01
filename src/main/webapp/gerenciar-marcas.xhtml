@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template-admin.xhtml"
+             xmlns:ec="http://xmlns.jcp.org/jsf/composite/eccomponente">
+
+
+    <ui:param name="tituloPagina" value="Gerenciar Categorias"></ui:param>
+    
+    <h:form>
+        
+        <ec:curdbar crudBean="#{gerenciarMarcaBean}"></ec:curdbar>
+        <p:fieldset legend="Categorias">
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" rendered="#{gerenciarMarcaBean.statusDaTela.name() != 'BUSCA'}" >
+
+                <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
+                <p:inputText id="inputnome" value="#{gerenciarMarcaBean.entidade.nome}"></p:inputText>
+
+            </p:panelGrid>
+
+            <p:dataTable value="#{gerenciarMarcaBean.entidades}"
+                         var="marca"  rendered="#{gerenciarMarcaBean.statusDaTela.name() == 'BUSCA'}" >
+                <p:column>
+                    <p:commandButton 
+                        icon="pi pi-trash"
+                        actionListener="#{gerenciarMarcaBean.deletar(marca)}"
+                        update="@form"
+                        ></p:commandButton>
+                    <p:commandButton 
+                        icon="pi pi-pencil"
+                        actionListener="#{gerenciarMarcaBean.editar(marca)}"
+                        update="@form"
+                        ></p:commandButton>
+                </p:column>
+                <p:column headerText="Nome" filterBy="#{marca.nome}">
+                    <h:outputText value="#{marca.nome}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+
+        </p:fieldset>
+    </h:form>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
+</ui:decorate>
+

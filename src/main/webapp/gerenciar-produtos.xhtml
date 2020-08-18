@@ -13,7 +13,7 @@
     
     <h:form>
         
-        <ec:curdbar crudBean="#{produtoBean}">
+        <ec:curdbar crudBean="#{gerenciarProdutoBean}">
             <p:commandButton value="Exportar"></p:commandButton>
             <f:facet name="toolbarRight">
                 <p:commandButton 
@@ -24,27 +24,55 @@
             </f:facet>
         </ec:curdbar>
         <p:fieldset legend="Gerenciar Usuarios">
-            <p:panelGrid columns="2" rendered="#{produtoBean.statusDaTela.name() != 'BUSCA'}" >
+            <p:panelGrid columns="2" rendered="#{gerenciarProdutoBean.statusDaTela.name() != 'BUSCA'}" styleClass="ui-panelgrid-blank" >
 
                 <h:outputLabel for="inputnome" value="Nome"></h:outputLabel>
-                <p:inputText id="inputnome" value="#{produtoBean.entidade.nome}"></p:inputText>
+                <p:inputText id="inputnome" value="#{gerenciarProdutoBean.entidade.nome}"></p:inputText>
 
-                <h:outputLabel value="Descrição"></h:outputLabel>
-                <p:inputTextarea value="#{produtoBean.entidade.descricao}"></p:inputTextarea>
+                <h:outputLabel for="inputDescricao" value="Descrição"></h:outputLabel>
+                <p:inputTextarea id="inputDescricao" value="#{gerenciarProdutoBean.entidade.descricao}"></p:inputTextarea>
+                
+                <h:outputLabel value="Detalhes" for="textDetalhes"></h:outputLabel>
+                <p:textEditor id="textDetalhes" value="#{gerenciarProdutoBean.entidade.detalhes}"></p:textEditor>
+                
+                <h:outputLabel for="selectMarca" value="Marca"></h:outputLabel>
+                <h:panelGroup>
+                    <p:selectOneMenu id="selectMarca" value="#{gerenciarProdutoBean.entidade.marca}">
+                        <f:selectItem itemLabel="Selecione" itemValue=""></f:selectItem>
+                        <f:selectItems value="#{gerenciarProdutoBean.marcas}" var="marca" itemLabel="#{marca.nome}" itemValue="#{marca}"></f:selectItems>
+                    </p:selectOneMenu>
+                    
+                    <p:commandButton style="vertical-align: bottom" icon="fa fa-plus" onclick="PF('dialogAddMarca').show(); return;"></p:commandButton>
+                    <p:dialog header="Adicionar Marca" widgetVar="dialogAddMarca" modal="true">
+                        <h:outputLabel for="inputNomeMarca"></h:outputLabel>
+                        <p:inputText id="inputNomeMarca" value="#{adicionarMarcaBean.marca.nome}"></p:inputText>
+                        <p:commandButton actionListener="#{adicionarMarcaBean.salvar()}" oncomplete="PF('dialogAddMarca').hide()" update="inputNomeMarca" value="Salvar" icon="fa fa-floppy-o"></p:commandButton>
+                        <p:ajax event="close" listener="#{gerenciarProdutoBean.recaregarMarcas()}" update="selectMarca"></p:ajax>
+                    </p:dialog>
+                </h:panelGroup>
+                
+                <h:outputLabel for="selectCategoria" value="Categoria"></h:outputLabel>
+                <p:selectOneMenu id="selectCategoria" value="#{gerenciarProdutoBean.entidade.categoria}">
+                    <f:selectItem itemLabel="Selecione" itemValue=""></f:selectItem>
+                    <f:selectItems value="#{gerenciarProdutoBean.categorias}" var="categoria" itemLabel="#{categoria.nome}" itemValue="#{categoria}"></f:selectItems>
+                </p:selectOneMenu>
+                
+                <h:outputLabel for="inputValor" value="Valor"></h:outputLabel>
+                <p:inputNumber symbol="R$" value="#{gerenciarProdutoBean.entidade.valor}"></p:inputNumber>
 
             </p:panelGrid>
 
-            <p:dataTable value="#{produtoBean.entidades}"
-                         var="produto"  rendered="#{produtoBean.statusDaTela.name() == 'BUSCA'}" >
+            <p:dataTable value="#{gerenciarProdutoBean.entidades}"
+                         var="produto"  rendered="#{gerenciarProdutoBean.statusDaTela.name() == 'BUSCA'}" >
                 <p:column>
                     <p:commandButton 
                         icon="pi pi-trash"
-                        actionListener="#{produtoBean.deletar(produto)}"
+                        actionListener="#{gerenciarProdutoBean.deletar(produto)}"
                         update="@form"
                         ></p:commandButton>
                     <p:commandButton 
                         icon="pi pi-pencil"
-                        actionListener="#{produtoBean.editar(produto)}"
+                        actionListener="#{gerenciarProdutoBean.editar(produto)}"
                         update="@form"
                         ></p:commandButton>
                 </p:column>

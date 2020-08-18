@@ -1,6 +1,5 @@
 package br.edu.iftm.ecommerce.dao;
 
-import br.edu.iftm.ecommerce.util.UserDatabase;
 import br.edu.iftm.ecommerce.util.exception.ErroSistemaException;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -8,7 +7,6 @@ import java.lang.reflect.Type;
 import java.util.List;
 import javax.inject.Inject; 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 public class GenericDAO<E, ID> implements Serializable {
 
@@ -16,7 +14,6 @@ public class GenericDAO<E, ID> implements Serializable {
     @Inject
     private EntityManager em;
 
-    @Transactional
     public E salvar(E entidade) throws ErroSistemaException {
         try {
 //            getEntityManager().getTransaction().begin();
@@ -31,7 +28,6 @@ public class GenericDAO<E, ID> implements Serializable {
         }
     }
 
-    @Transactional
     public void remover(ID id) throws ErroSistemaException {
         try {
 //            getEntityManager().getTransaction().begin();
@@ -46,7 +42,6 @@ public class GenericDAO<E, ID> implements Serializable {
         }
     }
 
-//    @Transactional
     public E buscarPorId(ID id) throws ErroSistemaException {
         try {
             return em.find(getEntityClass(), id);

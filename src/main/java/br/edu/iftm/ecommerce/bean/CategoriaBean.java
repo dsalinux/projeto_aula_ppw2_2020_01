@@ -12,7 +12,7 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class CategoriaBean extends CrudBean<Categoria, CategoriaLogic>{
+public class CategoriaBean extends CrudBean<Categoria, CategoriaLogic> {
 
     @Inject
     private CategoriaLogic logic;
@@ -20,13 +20,13 @@ public class CategoriaBean extends CrudBean<Categoria, CategoriaLogic>{
     public CategoriaBean() {
         super(Categoria.class);
     }
-    
+
     @Override
     public CategoriaLogic getLogic() {
         return logic;
     }
-    
-    public List<Categoria> getCategoriasSuperior(){
+
+    public List<Categoria> getCategoriasSuperior() {
         try {
             return logic.buscar(null);
         } catch (ErroSistemaException ex) {

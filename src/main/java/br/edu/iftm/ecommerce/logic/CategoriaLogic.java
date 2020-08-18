@@ -11,7 +11,7 @@ import br.edu.iftm.ecommerce.util.exception.ErroNegocioException;
 import br.edu.iftm.ecommerce.util.exception.ErroSistemaException;
 import java.util.List;
 import javax.inject.Inject;
-import br.edu.iftm.ecommerce.util.Transactional;
+import br.edu.iftm.ecommerce.util.Transacao;
 
 /**
  *
@@ -23,13 +23,13 @@ public class CategoriaLogic implements CrudLogic<Categoria>{
     private CategoriaDAO dao;
     
     @Override
-    @Transactional
+    @Transacao
     public Categoria salvar(Categoria entidade) throws ErroSistemaException, ErroNegocioException {
         return dao.salvar(entidade);
     }
 
     @Override
-    @Transactional
+    @Transacao
     public void deletar(Categoria entidade) throws ErroSistemaException, ErroNegocioException {
         dao.remover(entidade.getId());
     }

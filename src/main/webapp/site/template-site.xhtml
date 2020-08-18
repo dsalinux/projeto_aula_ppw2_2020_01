@@ -5,6 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Site Ecommerce</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet library="site" name="css/bootstrap.min.css"></h:outputStylesheet>
         <h:outputStylesheet library="site" name="css/site_ecommerce.css"></h:outputStylesheet>
         <script src="https://kit.fontawesome.com/dcdd1dcc23.js" crossorigin="anonymous"></script>
@@ -39,7 +40,7 @@
                                 <a class="nav-link #{'/site/contato.xhtml'.equals(view.viewId)?'active':''}" href="#{request.contextPath}/site/contato.xhtml">Contato</a>
                             </li>
                         </ul>
-                        <div><a class="btn #{'/site/carrinho.xhtml'.equals(view.viewId)?'btn-success':'btn-light '}" href="carrinho.xhtml"><i class="fas fa-shopping-cart"></i> Carrinho <span class="badge badge-pill badge-danger">2</span></a></div>
+                        <div><a class="btn #{'/site/carrinho.xhtml'.equals(view.viewId)?'btn-success':'btn-light '}" href="#{request.contextPath}/site/carrinho.xhtml"><i class="fas fa-shopping-cart"></i> Carrinho <span class="badge badge-pill badge-danger">2</span></a></div>
                     </div>
                 </div>
             </nav>
